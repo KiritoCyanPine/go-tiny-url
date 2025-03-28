@@ -2,18 +2,22 @@ package logic
 
 import "github.com/kiritocyanpine/go-tiny-url/persistant"
 
-var TinyUrlInstance *TinyUrl
+var tinyUrlInstance *TinyUrl
 
 func CreateTinyUrl(persistance persistant.Persistant) *TinyUrl {
-	if TinyUrlInstance != nil {
-		return TinyUrlInstance
+	if tinyUrlInstance != nil {
+		return tinyUrlInstance
 	}
 
-	TinyUrlInstance = &TinyUrl{
+	tinyUrlInstance = &TinyUrl{
 		db: persistance,
 	}
 
-	return TinyUrlInstance
+	return tinyUrlInstance
+}
+
+func GetTinyUrlInstance() *TinyUrl {
+	return tinyUrlInstance
 }
 
 type TinyUrl struct {

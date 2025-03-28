@@ -19,3 +19,20 @@ body {
   transition-timing-function:ease;
   transform: scale(105%);
 }
+
+.navbar {
+  background-color: rgba(255, 255, 255, 0.2);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+.navbar-brand, .nav-link {
+  color: white !important;
+}
+.nav-link:hover {
+  color: #e0f7fa !important;
+}
+.content {
+  margin-top: 80px;
+}

@@ -1,0 +1,21 @@
+body {
+  background-color: #00bcd4;
+  font-family: "Courier New", Courier, monospace;
+  color: white;
+}
+.container {
+  height: 100vh;
+}
+.btn-custom {
+  background-color: white;
+  color: #00bcd4;
+  font-weight: bold;
+}
+.btn-custom:hover {
+  background-color: white;
+  color: #00bcd4;
+  transition-duration: 150ms;
+  transition-property: transform;
+  transition-timing-function:ease;
+  transform: scale(105%);
+}

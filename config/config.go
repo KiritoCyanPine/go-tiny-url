@@ -19,7 +19,7 @@ func GetConfigurations() Configuration {
 func getHostAddress() string {
 	value := os.Getenv(hostAddress)
 	if isEmptyOrWhiteSpace(value) {
-		return "go-tiny.com"
+		return "http://localhost:8080"
 	}
 
 	return value

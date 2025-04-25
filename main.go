@@ -17,7 +17,7 @@ import (
 type AppDependencies struct {
 	handler handler.TinyUrlHandler
 	logic   logic.TinyUrl
-	config  config.Configuration
+	config  *config.Configuration
 	db      persistant.Persistant
 }
 
@@ -32,14 +32,14 @@ func initGinDependencies(r *gin.Engine) {
 	r.LoadHTMLGlob("templates/*.html")
 
 	// middleware list
-	r.Use(middlewares.AllowCrossOriginRequests())
+	r.Use(middlewares.RequestContext(), middlewares.AllowCrossOriginRequests())
 }
 
 func initApp() *AppDependencies {
 	configInstance := config.GetConfigurations()
 	dbInstance := inmemory.CreateDB()
 	logicInstance := logic.CreateTinyUrl(dbInstance)
-	handlerInstance := handler.CreateTinyUrlHandler(logicInstance, &configInstance)
+	handlerInstance := handler.CreateTinyUrlHandler(logicInstance)
 
 	return &AppDependencies{
 		handler: handlerInstance,

@@ -4,25 +4,23 @@ import (
 	"encoding/json"
 	"errors"
 	"html/template"
+	"log"
 	"net/http"
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/kiritocyanpine/go-tiny-url/config"
 	"github.com/kiritocyanpine/go-tiny-url/logic"
+	"github.com/kiritocyanpine/go-tiny-url/middlewares"
 	"github.com/kiritocyanpine/go-tiny-url/persistant"
 )
 
 type TinyUrlHandler struct {
-	logic  *logic.TinyUrl
-	config *config.Configuration
+	logic *logic.TinyUrl
 }
 
-func CreateTinyUrlHandler(tinyUrlLogic *logic.TinyUrl,
-	configs *config.Configuration) TinyUrlHandler {
+func CreateTinyUrlHandler(tinyUrlLogic *logic.TinyUrl) TinyUrlHandler {
 	return TinyUrlHandler{
-		logic:  tinyUrlLogic,
-		config: configs,
+		logic: tinyUrlLogic,
 	}
 }
 
@@ -46,6 +44,16 @@ func (h *TinyUrlHandler) ShortenNewURLRequestHander(c *gin.Context) {
 		return
 	}
 
+	hostValue, exists := c.Get(middlewares.HostName_URL_Key)
+	if !exists {
+		log.Fatal("host name not found")
+	}
+
+	hostName, ok := hostValue.(string)
+	if !ok {
+		log.Fatal("assertion failed")
+	}
+
 	var shortingData ShortenUrlRequest
 	if err := json.Unmarshal(data, &shortingData); err != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
@@ -60,7 +68,7 @@ func (h *TinyUrlHandler) ShortenNewURLRequestHander(c *gin.Context) {
 	}
 
 	response := ShortnerUrlResponse{
-		Url: h.config.HostAddress + "/" + queryPath,
+		Url: hostName + "/" + queryPath,
 	}
 
 	c.JSON(http.StatusOK, response)

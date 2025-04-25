@@ -2,6 +2,9 @@
 
 A modern URL shortening service built with Go, providing a clean web interface and RESTful API for creating and managing shortened URLs.
 
+[![Go](https://github.com/KiritoCyanPine/go-tiny-url/actions/workflows/go-basic-workflow.yml/badge.svg)](https://github.com/KiritoCyanPine/go-tiny-url/actions/workflows/go-basic-workflow.yml)
+
+
 ## Features
 
 - URL shortening with custom path generation

@@ -2,7 +2,6 @@ package logic
 
 import (
 	"errors"
-	"time"
 
 	"github.com/kiritocyanpine/go-tiny-url/persistant"
 )
@@ -17,8 +16,6 @@ func (app *TinyUrl) AddNewUrlQuery(url string) (string, error) {
 		if !errors.Is(err, persistant.ErrKeyCollision) {
 			return "", err
 		}
-
-		return app.AddNewUrlQuery(url + time.Now().String())
 	}
 
 	return urlQuery, nil

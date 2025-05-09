@@ -34,7 +34,6 @@ func getHasedValue(url string) string {
 	bs := h.Sum(nil)
 
 	encoded := base32.StdEncoding.EncodeToString(bs)
-	lowerEncoded := strings.ToLower(encoded)
 
-	return lowerEncoded[:10]
+	return encoded[:10]
 }
